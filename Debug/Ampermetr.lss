@@ -1,0 +1,478 @@
+
+Ampermetr.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000002c4  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         0000000a  00800060  000002c4  00000358  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          0000000b  0080006a  0080006a  00000362  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  00000362  2**0
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000038  00000000  00000000  00000392  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000001c3  00000000  00000000  000003ca  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000000f8  00000000  00000000  0000058d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000118  00000000  00000000  00000685  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  000000b0  00000000  00000000  000007a0  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000001af  00000000  00000000  00000850  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000293  00000000  00000000  000009ff  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000028  00000000  00000000  00000c92  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	2c c0       	rjmp	.+88     	; 0x5c <__bad_interrupt>
+   4:	2b c0       	rjmp	.+86     	; 0x5c <__bad_interrupt>
+   6:	2a c0       	rjmp	.+84     	; 0x5c <__bad_interrupt>
+   8:	29 c0       	rjmp	.+82     	; 0x5c <__bad_interrupt>
+   a:	28 c0       	rjmp	.+80     	; 0x5c <__bad_interrupt>
+   c:	27 c0       	rjmp	.+78     	; 0x5c <__bad_interrupt>
+   e:	26 c0       	rjmp	.+76     	; 0x5c <__bad_interrupt>
+  10:	25 c0       	rjmp	.+74     	; 0x5c <__bad_interrupt>
+  12:	87 c0       	rjmp	.+270    	; 0x122 <__vector_9>
+  14:	23 c0       	rjmp	.+70     	; 0x5c <__bad_interrupt>
+  16:	22 c0       	rjmp	.+68     	; 0x5c <__bad_interrupt>
+  18:	21 c0       	rjmp	.+66     	; 0x5c <__bad_interrupt>
+  1a:	20 c0       	rjmp	.+64     	; 0x5c <__bad_interrupt>
+  1c:	c1 c0       	rjmp	.+386    	; 0x1a0 <__vector_14>
+  1e:	1e c0       	rjmp	.+60     	; 0x5c <__bad_interrupt>
+  20:	1d c0       	rjmp	.+58     	; 0x5c <__bad_interrupt>
+  22:	1c c0       	rjmp	.+56     	; 0x5c <__bad_interrupt>
+  24:	1b c0       	rjmp	.+54     	; 0x5c <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_copy_data>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	e4 ec       	ldi	r30, 0xC4	; 196
+  3a:	f2 e0       	ldi	r31, 0x02	; 2
+  3c:	02 c0       	rjmp	.+4      	; 0x42 <__SREG__+0x3>
+  3e:	05 90       	lpm	r0, Z+
+  40:	0d 92       	st	X+, r0
+  42:	aa 36       	cpi	r26, 0x6A	; 106
+  44:	b1 07       	cpc	r27, r17
+  46:	d9 f7       	brne	.-10     	; 0x3e <__SP_H__>
+
+00000048 <__do_clear_bss>:
+  48:	20 e0       	ldi	r18, 0x00	; 0
+  4a:	aa e6       	ldi	r26, 0x6A	; 106
+  4c:	b0 e0       	ldi	r27, 0x00	; 0
+  4e:	01 c0       	rjmp	.+2      	; 0x52 <.do_clear_bss_start>
+
+00000050 <.do_clear_bss_loop>:
+  50:	1d 92       	st	X+, r1
+
+00000052 <.do_clear_bss_start>:
+  52:	a5 37       	cpi	r26, 0x75	; 117
+  54:	b2 07       	cpc	r27, r18
+  56:	e1 f7       	brne	.-8      	; 0x50 <.do_clear_bss_loop>
+  58:	d6 d0       	rcall	.+428    	; 0x206 <main>
+  5a:	32 c1       	rjmp	.+612    	; 0x2c0 <_exit>
+
+0000005c <__bad_interrupt>:
+  5c:	d1 cf       	rjmp	.-94     	; 0x0 <__vectors>
+
+0000005e <convert_number_to_decimal_digits>:
+	0x7F,//8
+	0x6F //9
+};
+
+void convert_number_to_decimal_digits( uint16_t val )
+{
+  5e:	cf 93       	push	r28
+  60:	df 93       	push	r29
+  62:	ac 01       	movw	r20, r24
+	uint8_t counter;
+	uint16_t buffer = val;
+	for (counter = 0; counter < NUMBER_DIGITS; counter++)
+	{
+		digits[counter] = 0;
+  64:	10 92 71 00 	sts	0x0071, r1
+  68:	10 92 72 00 	sts	0x0072, r1
+  6c:	10 92 73 00 	sts	0x0073, r1
+  70:	10 92 74 00 	sts	0x0074, r1
+	}
+
+	counter = 0;
+
+	while( (counter < NUMBER_DIGITS) && ( buffer !=0) )
+  74:	00 97       	sbiw	r24, 0x00	; 0
+  76:	51 f5       	brne	.+84     	; 0xcc <convert_number_to_decimal_digits+0x6e>
+  78:	51 c0       	rjmp	.+162    	; 0x11c <convert_number_to_decimal_digits+0xbe>
+	{
+		digits[counter] = buffer%10;
+  7a:	9a 01       	movw	r18, r20
+  7c:	ad ec       	ldi	r26, 0xCD	; 205
+  7e:	bc ec       	ldi	r27, 0xCC	; 204
+  80:	13 d1       	rcall	.+550    	; 0x2a8 <__umulhisi3>
+  82:	96 95       	lsr	r25
+  84:	87 95       	ror	r24
+  86:	96 95       	lsr	r25
+  88:	87 95       	ror	r24
+  8a:	96 95       	lsr	r25
+  8c:	87 95       	ror	r24
+  8e:	9c 01       	movw	r18, r24
+  90:	22 0f       	add	r18, r18
+  92:	33 1f       	adc	r19, r19
+  94:	88 0f       	add	r24, r24
+  96:	99 1f       	adc	r25, r25
+  98:	88 0f       	add	r24, r24
+  9a:	99 1f       	adc	r25, r25
+  9c:	88 0f       	add	r24, r24
+  9e:	99 1f       	adc	r25, r25
+  a0:	82 0f       	add	r24, r18
+  a2:	93 1f       	adc	r25, r19
+  a4:	9a 01       	movw	r18, r20
+  a6:	28 1b       	sub	r18, r24
+  a8:	39 0b       	sbc	r19, r25
+  aa:	21 93       	st	Z+, r18
+		buffer = buffer/10;
+  ac:	9a 01       	movw	r18, r20
+  ae:	fc d0       	rcall	.+504    	; 0x2a8 <__umulhisi3>
+  b0:	ac 01       	movw	r20, r24
+  b2:	56 95       	lsr	r21
+  b4:	47 95       	ror	r20
+  b6:	56 95       	lsr	r21
+  b8:	47 95       	ror	r20
+  ba:	56 95       	lsr	r21
+  bc:	47 95       	ror	r20
+		digits[counter] = 0;
+	}
+
+	counter = 0;
+
+	while( (counter < NUMBER_DIGITS) && ( buffer !=0) )
+  be:	ec 17       	cp	r30, r28
+  c0:	fd 07       	cpc	r31, r29
+  c2:	61 f1       	breq	.+88     	; 0x11c <convert_number_to_decimal_digits+0xbe>
+  c4:	41 15       	cp	r20, r1
+  c6:	51 05       	cpc	r21, r1
+  c8:	c1 f6       	brne	.-80     	; 0x7a <convert_number_to_decimal_digits+0x1c>
+  ca:	28 c0       	rjmp	.+80     	; 0x11c <convert_number_to_decimal_digits+0xbe>
+	{
+		digits[counter] = buffer%10;
+  cc:	9c 01       	movw	r18, r24
+  ce:	ad ec       	ldi	r26, 0xCD	; 205
+  d0:	bc ec       	ldi	r27, 0xCC	; 204
+  d2:	ea d0       	rcall	.+468    	; 0x2a8 <__umulhisi3>
+  d4:	96 95       	lsr	r25
+  d6:	87 95       	ror	r24
+  d8:	96 95       	lsr	r25
+  da:	87 95       	ror	r24
+  dc:	96 95       	lsr	r25
+  de:	87 95       	ror	r24
+  e0:	9c 01       	movw	r18, r24
+  e2:	22 0f       	add	r18, r18
+  e4:	33 1f       	adc	r19, r19
+  e6:	88 0f       	add	r24, r24
+  e8:	99 1f       	adc	r25, r25
+  ea:	88 0f       	add	r24, r24
+  ec:	99 1f       	adc	r25, r25
+  ee:	88 0f       	add	r24, r24
+  f0:	99 1f       	adc	r25, r25
+  f2:	82 0f       	add	r24, r18
+  f4:	93 1f       	adc	r25, r19
+  f6:	9a 01       	movw	r18, r20
+  f8:	28 1b       	sub	r18, r24
+  fa:	39 0b       	sbc	r19, r25
+  fc:	20 93 71 00 	sts	0x0071, r18
+		buffer = buffer/10;
+ 100:	9a 01       	movw	r18, r20
+ 102:	d2 d0       	rcall	.+420    	; 0x2a8 <__umulhisi3>
+ 104:	ac 01       	movw	r20, r24
+ 106:	56 95       	lsr	r21
+ 108:	47 95       	ror	r20
+ 10a:	56 95       	lsr	r21
+ 10c:	47 95       	ror	r20
+ 10e:	56 95       	lsr	r21
+ 110:	47 95       	ror	r20
+ 112:	e2 e7       	ldi	r30, 0x72	; 114
+ 114:	f0 e0       	ldi	r31, 0x00	; 0
+ 116:	c5 e7       	ldi	r28, 0x75	; 117
+ 118:	d0 e0       	ldi	r29, 0x00	; 0
+ 11a:	d4 cf       	rjmp	.-88     	; 0xc4 <convert_number_to_decimal_digits+0x66>
+		counter++;
+	}
+}
+ 11c:	df 91       	pop	r29
+ 11e:	cf 91       	pop	r28
+ 120:	08 95       	ret
+
+00000122 <__vector_9>:
+
+// Подпрограма вывода цифр на семисегментный индикатор
+ISR(TIMER0_OVF_vect)
+{
+ 122:	1f 92       	push	r1
+ 124:	0f 92       	push	r0
+ 126:	0f b6       	in	r0, 0x3f	; 63
+ 128:	0f 92       	push	r0
+ 12a:	11 24       	eor	r1, r1
+ 12c:	2f 93       	push	r18
+ 12e:	3f 93       	push	r19
+ 130:	4f 93       	push	r20
+ 132:	8f 93       	push	r24
+ 134:	9f 93       	push	r25
+ 136:	ef 93       	push	r30
+ 138:	ff 93       	push	r31
+	uint8_t dig = digits[current_digit];
+ 13a:	e0 91 70 00 	lds	r30, 0x0070
+ 13e:	f0 e0       	ldi	r31, 0x00	; 0
+ 140:	ef 58       	subi	r30, 0x8F	; 143
+ 142:	ff 4f       	sbci	r31, 0xFF	; 255
+	PORTB = number[ dig ];
+ 144:	e0 81       	ld	r30, Z
+ 146:	f0 e0       	ldi	r31, 0x00	; 0
+ 148:	e0 5a       	subi	r30, 0xA0	; 160
+ 14a:	ff 4f       	sbci	r31, 0xFF	; 255
+ 14c:	80 81       	ld	r24, Z
+ 14e:	88 bb       	out	0x18, r24	; 24
+	PORTC = ( PORTC&~( 0b00001111 )) | ( 1 << current_digit);
+ 150:	45 b3       	in	r20, 0x15	; 21
+ 152:	21 e0       	ldi	r18, 0x01	; 1
+ 154:	30 e0       	ldi	r19, 0x00	; 0
+ 156:	c9 01       	movw	r24, r18
+ 158:	00 90 70 00 	lds	r0, 0x0070
+ 15c:	02 c0       	rjmp	.+4      	; 0x162 <__vector_9+0x40>
+ 15e:	88 0f       	add	r24, r24
+ 160:	99 1f       	adc	r25, r25
+ 162:	0a 94       	dec	r0
+ 164:	e2 f7       	brpl	.-8      	; 0x15e <__vector_9+0x3c>
+ 166:	94 2f       	mov	r25, r20
+ 168:	90 7f       	andi	r25, 0xF0	; 240
+ 16a:	89 2b       	or	r24, r25
+ 16c:	85 bb       	out	0x15, r24	; 21
+	current_digit++;
+ 16e:	80 91 70 00 	lds	r24, 0x0070
+ 172:	8f 5f       	subi	r24, 0xFF	; 255
+	if ( current_digit == NUMBER_DIGITS )
+ 174:	84 30       	cpi	r24, 0x04	; 4
+ 176:	19 f0       	breq	.+6      	; 0x17e <__vector_9+0x5c>
+ISR(TIMER0_OVF_vect)
+{
+	uint8_t dig = digits[current_digit];
+	PORTB = number[ dig ];
+	PORTC = ( PORTC&~( 0b00001111 )) | ( 1 << current_digit);
+	current_digit++;
+ 178:	80 93 70 00 	sts	0x0070, r24
+ 17c:	02 c0       	rjmp	.+4      	; 0x182 <__vector_9+0x60>
+	if ( current_digit == NUMBER_DIGITS )
+	current_digit=0;
+ 17e:	10 92 70 00 	sts	0x0070, r1
+	TIFR |= 1 << TOV0;
+ 182:	88 b7       	in	r24, 0x38	; 56
+ 184:	81 60       	ori	r24, 0x01	; 1
+ 186:	88 bf       	out	0x38, r24	; 56
+}
+ 188:	ff 91       	pop	r31
+ 18a:	ef 91       	pop	r30
+ 18c:	9f 91       	pop	r25
+ 18e:	8f 91       	pop	r24
+ 190:	4f 91       	pop	r20
+ 192:	3f 91       	pop	r19
+ 194:	2f 91       	pop	r18
+ 196:	0f 90       	pop	r0
+ 198:	0f be       	out	0x3f, r0	; 63
+ 19a:	0f 90       	pop	r0
+ 19c:	1f 90       	pop	r1
+ 19e:	18 95       	reti
+
+000001a0 <__vector_14>:
+
+ISR(ADC_vect)
+{
+ 1a0:	1f 92       	push	r1
+ 1a2:	0f 92       	push	r0
+ 1a4:	0f b6       	in	r0, 0x3f	; 63
+ 1a6:	0f 92       	push	r0
+ 1a8:	11 24       	eor	r1, r1
+ 1aa:	2f 93       	push	r18
+ 1ac:	3f 93       	push	r19
+ 1ae:	8f 93       	push	r24
+ 1b0:	9f 93       	push	r25
+	adc_ch5  = ADCL;
+ 1b2:	84 b1       	in	r24, 0x04	; 4
+ 1b4:	90 e0       	ldi	r25, 0x00	; 0
+ 1b6:	90 93 6b 00 	sts	0x006B, r25
+ 1ba:	80 93 6a 00 	sts	0x006A, r24
+	adc_ch5 |= ADCH << 8;
+ 1be:	25 b1       	in	r18, 0x05	; 5
+ 1c0:	92 2b       	or	r25, r18
+ 1c2:	90 93 6b 00 	sts	0x006B, r25
+ 1c6:	80 93 6a 00 	sts	0x006A, r24
+	value = value + adc_ch5;
+ 1ca:	20 91 6e 00 	lds	r18, 0x006E
+ 1ce:	30 91 6f 00 	lds	r19, 0x006F
+ 1d2:	82 0f       	add	r24, r18
+ 1d4:	93 1f       	adc	r25, r19
+ 1d6:	90 93 6f 00 	sts	0x006F, r25
+ 1da:	80 93 6e 00 	sts	0x006E, r24
+	click++;
+ 1de:	80 91 6c 00 	lds	r24, 0x006C
+ 1e2:	90 91 6d 00 	lds	r25, 0x006D
+ 1e6:	01 96       	adiw	r24, 0x01	; 1
+ 1e8:	90 93 6d 00 	sts	0x006D, r25
+ 1ec:	80 93 6c 00 	sts	0x006C, r24
+		
+	ADCSRA |= 1 << ADSC;
+ 1f0:	36 9a       	sbi	0x06, 6	; 6
+	ADCSRA |= 1 << ADIF;
+ 1f2:	34 9a       	sbi	0x06, 4	; 6
+}
+ 1f4:	9f 91       	pop	r25
+ 1f6:	8f 91       	pop	r24
+ 1f8:	3f 91       	pop	r19
+ 1fa:	2f 91       	pop	r18
+ 1fc:	0f 90       	pop	r0
+ 1fe:	0f be       	out	0x3f, r0	; 63
+ 200:	0f 90       	pop	r0
+ 202:	1f 90       	pop	r1
+ 204:	18 95       	reti
+
+00000206 <main>:
+
+int main (void)
+{
+	// Настраиваем выводи для управления сегментами
+	DDRB |=0xFF;
+ 206:	87 b3       	in	r24, 0x17	; 23
+ 208:	8f ef       	ldi	r24, 0xFF	; 255
+ 20a:	87 bb       	out	0x17, r24	; 23
+	PORTB |=0x00;
+ 20c:	88 b3       	in	r24, 0x18	; 24
+ 20e:	88 bb       	out	0x18, r24	; 24
+	// Выводи для управления катодами
+	DDRC |= (1 << PC3 ) | (1 << PC2 ) | (1 << PC1 ) | (1 << PC0 );
+ 210:	84 b3       	in	r24, 0x14	; 20
+ 212:	8f 60       	ori	r24, 0x0F	; 15
+ 214:	84 bb       	out	0x14, r24	; 20
+	PORTC &= ~((1 << PC3 ) | (1 << PC2 ) | (1 << PC1 ) | (1 << PC0 ));
+ 216:	85 b3       	in	r24, 0x15	; 21
+ 218:	80 7f       	andi	r24, 0xF0	; 240
+ 21a:	85 bb       	out	0x15, r24	; 21
+	// Выводи для подключения кнопок
+	DDRD &= ~((1 << PD0) | (1 << PD1));
+ 21c:	81 b3       	in	r24, 0x11	; 17
+ 21e:	8c 7f       	andi	r24, 0xFC	; 252
+ 220:	81 bb       	out	0x11, r24	; 17
+	PORTD |= (1 << PD0) | (1 << PD1);
+ 222:	82 b3       	in	r24, 0x12	; 18
+ 224:	83 60       	ori	r24, 0x03	; 3
+ 226:	82 bb       	out	0x12, r24	; 18
+	// Настраиваем таймер
+	TCCR0 |=(1 << CS01) | (1 << CS00);
+ 228:	83 b7       	in	r24, 0x33	; 51
+ 22a:	83 60       	ori	r24, 0x03	; 3
+ 22c:	83 bf       	out	0x33, r24	; 51
+	TCCR0 &= ~( 1 << CS02 );
+ 22e:	83 b7       	in	r24, 0x33	; 51
+ 230:	8b 7f       	andi	r24, 0xFB	; 251
+ 232:	83 bf       	out	0x33, r24	; 51
+	TIMSK|= 1 << TOIE0;
+ 234:	89 b7       	in	r24, 0x39	; 57
+ 236:	81 60       	ori	r24, 0x01	; 1
+ 238:	89 bf       	out	0x39, r24	; 57
+	TIFR |= 1 << TOV0;
+ 23a:	88 b7       	in	r24, 0x38	; 56
+ 23c:	81 60       	ori	r24, 0x01	; 1
+ 23e:	88 bf       	out	0x38, r24	; 56
+	// Настройка АЦП
+	ADMUX |= (1 << REFS1) | (1 << REFS0); // Внутрений источник опорного напряжения
+ 240:	87 b1       	in	r24, 0x07	; 7
+ 242:	80 6c       	ori	r24, 0xC0	; 192
+ 244:	87 b9       	out	0x07, r24	; 7
+	ADMUX |= (1 << MUX2) | (1 << MUX0);	  // Выбираем вход АЦП ADC5
+ 246:	87 b1       	in	r24, 0x07	; 7
+ 248:	85 60       	ori	r24, 0x05	; 5
+ 24a:	87 b9       	out	0x07, r24	; 7
+	ADMUX &= ~((1 << MUX3) | (1 << MUX1));
+ 24c:	87 b1       	in	r24, 0x07	; 7
+ 24e:	85 7f       	andi	r24, 0xF5	; 245
+ 250:	87 b9       	out	0x07, r24	; 7
+	ADMUX  &= ~(1 << ADLAR);
+ 252:	3d 98       	cbi	0x07, 5	; 7
+	ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0); // Коефициент деления 128
+ 254:	86 b1       	in	r24, 0x06	; 6
+ 256:	87 60       	ori	r24, 0x07	; 7
+ 258:	86 b9       	out	0x06, r24	; 6
+	ADCSRA &= ~(1 << ADFR);
+ 25a:	35 98       	cbi	0x06, 5	; 6
+	ADCSRA |= 1 << ADIE;
+ 25c:	33 9a       	sbi	0x06, 3	; 6
+	ADCSRA |= 1 << ADEN;
+ 25e:	37 9a       	sbi	0x06, 7	; 6
+	ADCSRA |= 1 << ADSC;
+ 260:	36 9a       	sbi	0x06, 6	; 6
+	ADCSRA |= 1 << ADIF;
+ 262:	34 9a       	sbi	0x06, 4	; 6
+	sei(); // Разришаем глобальные прерывания
+ 264:	78 94       	sei
+
+	while(1)
+	{
+		if( click==256)
+ 266:	80 91 6c 00 	lds	r24, 0x006C
+ 26a:	90 91 6d 00 	lds	r25, 0x006D
+ 26e:	81 15       	cp	r24, r1
+ 270:	91 40       	sbci	r25, 0x01	; 1
+ 272:	c9 f7       	brne	.-14     	; 0x266 <main+0x60>
+		{
+			value = (value/256)*(10/4);
+ 274:	80 91 6e 00 	lds	r24, 0x006E
+ 278:	90 91 6f 00 	lds	r25, 0x006F
+ 27c:	89 2f       	mov	r24, r25
+ 27e:	99 27       	eor	r25, r25
+ 280:	88 0f       	add	r24, r24
+ 282:	99 1f       	adc	r25, r25
+ 284:	90 93 6f 00 	sts	0x006F, r25
+ 288:	80 93 6e 00 	sts	0x006E, r24
+			convert_number_to_decimal_digits(value);
+ 28c:	80 91 6e 00 	lds	r24, 0x006E
+ 290:	90 91 6f 00 	lds	r25, 0x006F
+ 294:	e4 de       	rcall	.-568    	; 0x5e <convert_number_to_decimal_digits>
+			value = 0;
+ 296:	10 92 6f 00 	sts	0x006F, r1
+ 29a:	10 92 6e 00 	sts	0x006E, r1
+			click = 0;
+ 29e:	10 92 6d 00 	sts	0x006D, r1
+ 2a2:	10 92 6c 00 	sts	0x006C, r1
+ 2a6:	df cf       	rjmp	.-66     	; 0x266 <main+0x60>
+
+000002a8 <__umulhisi3>:
+ 2a8:	a2 9f       	mul	r26, r18
+ 2aa:	b0 01       	movw	r22, r0
+ 2ac:	b3 9f       	mul	r27, r19
+ 2ae:	c0 01       	movw	r24, r0
+ 2b0:	a3 9f       	mul	r26, r19
+ 2b2:	01 d0       	rcall	.+2      	; 0x2b6 <__umulhisi3+0xe>
+ 2b4:	b2 9f       	mul	r27, r18
+ 2b6:	70 0d       	add	r23, r0
+ 2b8:	81 1d       	adc	r24, r1
+ 2ba:	11 24       	eor	r1, r1
+ 2bc:	91 1d       	adc	r25, r1
+ 2be:	08 95       	ret
+
+000002c0 <_exit>:
+ 2c0:	f8 94       	cli
+
+000002c2 <__stop_program>:
+ 2c2:	ff cf       	rjmp	.-2      	; 0x2c2 <__stop_program>
